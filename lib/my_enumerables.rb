@@ -16,7 +16,7 @@ module Enumerable
     arr
   end
 
-  def my_all? 
+  def my_all?
     my_each do |element|
       return false unless yield(element)
     end
@@ -32,6 +32,18 @@ module Enumerable
     my_each {|element| return false if yield(element)}
     true
   end
+
+  def my_count
+    count = 0
+    if block_given?
+      my_each {|element| count += 1 if yield(element)}
+    else
+      for element in self
+        count += 1
+      end
+    end
+    count
+  end
 end
 
 class Array
@@ -41,5 +53,3 @@ class Array
     end
   end
 end
-
-
