@@ -22,6 +22,11 @@ module Enumerable
     end
     true
   end
+
+  def my_any?
+    my_each {|element| return true if yield(element)}
+    false
+  end
 end
 
 class Array
