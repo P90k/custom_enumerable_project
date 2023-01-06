@@ -15,6 +15,13 @@ module Enumerable
     end
     arr
   end
+
+  def my_all? 
+    my_each do |element|
+      return false unless yield(element)
+    end
+    true
+  end
 end
 
 class Array
