@@ -2,8 +2,8 @@
 module Enumerable
   def my_each_with_index()
     index = 0
-    for i in self
-      yield(i, index)
+    my_each do |element|
+      yield(element, index)
       index += 1
     end
   end
@@ -15,8 +15,10 @@ end
 # to this method
 class Array
   def my_each()
-    for i in self
-      yield i if block_given?
+    for element in self
+      yield element if block_given?
     end
   end
 end
+
+
