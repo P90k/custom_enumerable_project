@@ -44,6 +44,12 @@ module Enumerable
     end
     count
   end
+
+  def my_map
+    arr = []
+    my_each {|element| arr << yield(element)}
+    arr
+  end
 end
 
 class Array
