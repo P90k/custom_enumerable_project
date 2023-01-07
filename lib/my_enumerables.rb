@@ -1,6 +1,7 @@
+# frozen_string_literal: true
 
 module Enumerable
-  def my_each_with_index()
+  def my_each_with_index
     index = 0
     my_each do |element|
       yield(element, index)
@@ -24,21 +25,21 @@ module Enumerable
   end
 
   def my_any?
-    my_each {|element| return true if yield(element)}
+    my_each { |element| return true if yield(element) }
     false
   end
 
   def my_none?
-    my_each {|element| return false if yield(element)}
+    my_each { |element| return false if yield(element) }
     true
   end
 
   def my_count
     count = 0
     if block_given?
-      my_each {|element| count += 1 if yield(element)}
+      my_each { |element| count += 1 if yield(element) }
     else
-      for element in self
+      each do |_element|
         count += 1
       end
     end
@@ -47,14 +48,25 @@ module Enumerable
 
   def my_map
     arr = []
-    my_each {|element| arr << yield(element)}
+    my_each { |element| arr << yield(element) }
     arr
+  end
+
+  def my_inject(init_operand = nil)
+    if init_operand.nil?
+      total = self[0]
+      self[1..].my_each { |element| total = yield(total, element) }
+    else
+      total = init_operand
+      my_each { |element| total = yield(total, element) }
+    end
+    total
   end
 end
 
 class Array
-  def my_each()
-    for element in self
+  def my_each
+    each do |element|
       yield element if block_given?
     end
   end
